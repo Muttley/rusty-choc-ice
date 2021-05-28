@@ -14,6 +14,7 @@ use tracing::{error, info};
 use tracing_subscriber::{EnvFilter, FmtSubscriber};
 
 use commands::{meta::*};
+use commands::{roll::*};
 
 pub struct ShardManagerContainer;
 
@@ -37,6 +38,10 @@ impl EventHandler for Handler {
 #[group]
 #[commands(ping)]
 struct General;
+
+#[group]
+#[commands(roll)]
+struct Roll;
 
 #[tokio::main]
 async fn main() {
@@ -74,7 +79,8 @@ async fn main() {
 	// Create the framework
 	let framework = StandardFramework::new()
 		.configure(|c| c.owners(owners).prefix("!"))
-		.group(&GENERAL_GROUP);
+		.group(&GENERAL_GROUP)
+		.group(&ROLL_GROUP);
 
 	let mut client = Client::builder(&token)
 		.framework(framework)
