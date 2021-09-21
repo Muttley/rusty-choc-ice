@@ -1,4 +1,5 @@
 mod commands;
+mod dice;
 
 use serenity::{
 	async_trait,
